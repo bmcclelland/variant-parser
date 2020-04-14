@@ -13,11 +13,10 @@ enum class BinOp
     div
 };
 
+
 ////////////////////////////////
 // Expr
 
-// Declaring types so we can declare the variant.
-// They use the variant, so it must be declared before defining their bodies.
 struct BinOpExpr;
 struct NumExpr;
 
@@ -26,6 +25,8 @@ using Expr = std::variant<
     NumExpr
 >;
 
+// The Expr members create a recursive type. This has to be broken by
+// making them dynamically allocated somehow.
 struct BinOpExpr {
     std::unique_ptr<Expr> left;
     BinOp op;
@@ -35,6 +36,7 @@ struct BinOpExpr {
 struct NumExpr {
     int value;
 };
+
 
 ////////////////////////////////
 // Program
