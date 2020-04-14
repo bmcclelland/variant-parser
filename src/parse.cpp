@@ -17,32 +17,26 @@ Parsed<Expr> parse_expr(Input&);
 
 // AddOp :: '+' | '-'
 Parsed<BinOp> parse_add_op(Input& input) {
-    if (input.match<TAdd>())
-    {
+    if (input.match<TAdd>()) {
         return BinOp::add;
     }
-    else if (input.match<TSub>())
-    {
+    else if (input.match<TSub>()) {
         return BinOp::sub;
     }
-    else
-    {
+    else {
         return ParseError{ "expected add op" };
     }
 }
 
 // MulOp :: '*' | '/'
 Parsed<BinOp> parse_mul_op(Input& input) {
-    if (input.match<TMul>())
-    {
+    if (input.match<TMul>()) {
         return BinOp::mul;
     }
-    else if (input.match<TDiv>())
-    {
+    else if (input.match<TDiv>()) {
         return BinOp::div;
     }
-    else
-    {
+    else {
         return ParseError{ "expected mul op" };
     }
 }

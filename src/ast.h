@@ -5,8 +5,7 @@
 #include <memory>
 
 // Binary operators.
-enum class BinOp
-{
+enum class BinOp {
     add,
     sub,
     mul,

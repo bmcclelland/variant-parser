@@ -50,17 +50,14 @@ class Input {
         // Otherwise, return false.
         template <typename T>
         bool match() {
-            if (at_end())
-            {
+            if (at_end()) {
                 return false;
             }
-            else if (std::holds_alternative<T>(_tokens[_pos]))
-            {
+            else if (std::holds_alternative<T>(_tokens[_pos])) {
                 _pos++;
                 return true;
             }
-            else
-            {
+            else {
                 return false;
             }
         }
@@ -69,17 +66,14 @@ class Input {
         // Otherwise, return an error.
         template <typename T>
         Parsed_ expect() {
-            if (at_end())
-            {
+            if (at_end()) {
                 return ParseError{ "expect: no more tokens" };
             }
-            else if (std::holds_alternative<T>(_tokens[_pos]))
-            {
+            else if (std::holds_alternative<T>(_tokens[_pos])) {
                 _pos++;
                 return Parsed_::ok();
             }
-            else
-            {
+            else {
                 return ParseError{ "expect: unexpected" };
             }
         }
@@ -88,19 +82,19 @@ class Input {
         // Otherwise, return an error.
         template <typename T>
         Parsed<T> get() {
-            if (at_end())
-            {
+            if (at_end()) {
                 return ParseError{ "get: no more tokens" };
             }
-            else if (std::holds_alternative<T>(_tokens[_pos]))
-            {
-                T token = std::get<T>(_tokens[_pos]);
-                _pos++;
-                return token;
-            }
-            else
-            {
-                return ParseError{ "expect: unexpected" };
+            else {
+                T* t = std::get_if<T>(&_tokens[_pos]);
+
+                if (t) {
+                    _pos++;
+                    return *t;
+                }
+                else {
+                    return ParseError{ "expect: unexpected" };
+                }
             }
         }
 };
