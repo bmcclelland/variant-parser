@@ -48,7 +48,7 @@ Parsed<Expr> parse_num_expr(Input& input) {
     TRY(num, input.get<TNum>());
 
     rollback.cancel();
-    return Expr(NumExpr{ num. value });
+    return NumExpr{ num. value };
 }
 
 // Parens :: '(' Expr ')'
@@ -80,11 +80,11 @@ Parsed<Expr> parse_mul_expr_impl(Input& input) {
     TRY(right, parse_factor(input));
 
     rollback.cancel();
-    return Expr(BinOpExpr{
+    return BinOpExpr{
        into_ptr(left),
        op,
        into_ptr(right)
-    });
+    };
 }
 
 // Mul :: Mul' | Factor
@@ -104,11 +104,11 @@ Parsed<Expr> parse_add_expr_impl(Input& input) {
     TRY(right, parse_mul_expr(input));
 
     rollback.cancel();
-    return Expr(BinOpExpr{
+    return BinOpExpr{
         into_ptr(left),
         op,
         into_ptr(right)
-    });
+    };
 }
 
 // Add :: Add' | Mul
